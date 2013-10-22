@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BackyardUnlock extends Activity {
 	private TextView unlockcode;
@@ -31,13 +32,22 @@ public class BackyardUnlock extends Activity {
     	//Intent intent = new Intent(this, BackyardUnlock.class);
     	//startActivity(intent);
     	String userunlockcode = sharedPrefs.getString("userunlockcode","5555");
+
     	System.out.println("userunlockcode " + userunlockcode + " has been selected.");
     	if (unlockcode != null)
     	{
+        	if (unlockcode.getText().toString() == "")
+        	{
+        	      Toast.makeText(this, "Code is required",Toast.LENGTH_SHORT).show();
+        	    Intent intent = new Intent(this, Backyardhome.class);
+        	    startActivity(intent);
+        		
+        	}
+    	
     		int unlock = Integer.parseInt(unlockcode.getText().toString());
     		int usercode = Integer.parseInt(userunlockcode);
     		//System.out.println("userunlockcode " + userunlockcode + " has been selected.");
-    		if (unlock == 5555){
+    		/*if (unlock == 5555){
     		//initial set up of the app
     	    Intent intent = new Intent(this, Backyardhome.class);
     	    startActivity(intent);
@@ -46,8 +56,15 @@ public class BackyardUnlock extends Activity {
     			
         	    Intent intent = new Intent(this, Backyardhome.class);
         	    startActivity(intent);
-    		}    	
-    	}
+    		}*/
+    		if ( unlock == usercode)
+    		{
+    			Intent intent = new Intent(this, Backyardhome.class);
+        	    startActivity(intent);
+    		}
+    		 
+    	} 
+
     	
     }
 }

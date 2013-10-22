@@ -1,6 +1,7 @@
 package com.backyard.backyard;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
@@ -12,5 +13,9 @@ public class Help extends ListActivity {
 	        android.R.layout.simple_list_item_1, values);
 	    setListAdapter(adapter);
 	  }
-
+    @Override
+    public void onBackPressed(){
+     	Intent intent = new Intent(this, Backyardhome.class);
+    	startActivity(intent);
+    	}
 }

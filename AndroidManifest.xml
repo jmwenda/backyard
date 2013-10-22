@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="10"
         android:targetSdkVersion="15" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".BackyardUnlock"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main" android:noHistory="true" android:screenOrientation="portrait" android:launchMode="singleTask" android:clearTaskOnLaunch="true"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,8 @@
         </activity>
                 <activity
             android:name=".Backyardhome"
-            android:label="@string/title_activity_main" >
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_main" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.backyard.backyard.BackyardUnlock" />
@@ -38,7 +39,18 @@
         </activity>
             <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.backyard.backyard.MainActivity"/>
+               
+  </intent-filter>
+        </activity>
+           <activity
+            android:name=".AudioRecord"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.backyard.backyard.MainActivity" />
@@ -46,15 +58,17 @@
         </activity>
             <activity
             android:name=".ViewReports"
-            android:label="@string/title_activity_main" >
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_main" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.backyard.backyard.ViewReports" />
+                    android:value="com.backyard.backyard.ViewReports"/>
   </intent-filter>
         </activity>
             <activity
             android:name=".Help"
-            android:label="@string/title_activity_main" >
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_main" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.backyard.backyard.Backyardhome" />
@@ -62,29 +76,22 @@
         </activity>
                     <activity
             android:name=".Sync"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.backyard.backyard.Backyardhome" />
   </intent-filter>
         </activity>
-        <activity
-            android:name=".AddMultimedia"
-            android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.backyard.backyard.MainActivity" />
-  </intent-filter>
-        </activity>
                 <activity
             android:name=".SubmitData"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.backyard.backyard.SubmitData" />
   </intent-filter>
         </activity>
-        <activity android:name=".ShowSettingsActivity" />
+        <activity android:name=".ShowSettingsActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

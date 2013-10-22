@@ -19,5 +19,5 @@
     android:key="userunlockcode"
     android:title="Unlock Code"
     android:summary="Unlock Code"   
-    android:inputType="numberPassword" />
+    android:inputType="numberPassword" android:defaultValue = "5555" />
 </PreferenceScreen>

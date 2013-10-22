@@ -1,9 +1,43 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/TableLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:scrollbars="vertical" >
+            <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:minHeight="60px" >
 
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photo" android:onClick="takephoto" />
+
+            <Button
+              android:id="@+id/video"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_height="wrap_content"
+                            android:onClick="takevideo"
+                            android:text="Video" android:width="30dip" />
+
+    </TableRow>
+            <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+                    <Button
+            android:id="@+id/audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Audio" android:onClick="takeaudio"/>
+        </TableRow>
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
@@ -22,8 +56,28 @@
                      android:id="@+id/sectorvalue"
                      android:layout_width="fill_parent"
                      android:layout_height="fill_parent" android:entries="@array/sector_arrays"/>
+</TableRow>
+       <TableRow
+                     android:id="@+id/tableRow7"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" android:minHeight="60px" > >
 
-    </TableRow>
+                 <TextView
+                     android:id="@+id/sector"
+                     android:layout_width="fill_parent"
+                     android:layout_height="fill_parent"
+                     android:text="Sub Sector: " android:textSize="25px">
+
+ </TextView>
+
+                 <Spinner
+                     android:id="@+id/spinner3"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+
+                 </TableRow>
+
+    
     <TableRow
         android:id="@+id/tableRow5"
         android:layout_width="match_parent"
@@ -101,29 +155,10 @@
             android:text="Pick Location" android:onClick="GetLocation" />
 
     </TableRow>
-        <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:minHeight="60px" >
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Photo" android:onClick="takephoto" />
-
-                        <Button
-                            android:id="@+id/video"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Video" android:onClick="takevideo" />
-
-    </TableRow>
-
             <TableRow
         android:id="@+id/tableRow4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:minHeight="60px" >
+        android:layout_height="wrap_content" android:minHeight="10px" >
 
     </TableRow>
 
@@ -132,6 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="submit"
-                android:text="Submit" />
+                android:text="Save" />
 
 </TableLayout>
+</ScrollView>

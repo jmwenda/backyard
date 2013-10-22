@@ -9,9 +9,14 @@ package com.backyard.backyard;
 
 public final class R {
     public static final class array {
-        public static final int company_arrays=0x7f060002;
-        public static final int issue_arrays=0x7f060001;
+        public static final int company_arrays=0x7f060007;
+        public static final int issue_arrays=0x7f060006;
         public static final int sector_arrays=0x7f060000;
+        public static final int subsectoragric_arrays=0x7f060003;
+        public static final int subsectoranimals_arrays=0x7f060005;
+        public static final int subsectorbush_arrays=0x7f060004;
+        public static final int subsectorforest_arrays=0x7f060001;
+        public static final int subsectormining_arrays=0x7f060002;
     }
     public static final class attr {
     }
@@ -20,49 +25,63 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
+        public static final int StartPlaybackButton=0x7f09001a;
+        public static final int StartRecordingButton=0x7f090018;
+        public static final int StatusTextView=0x7f090017;
+        public static final int StopPlaybackButton=0x7f09001b;
+        public static final int StopRecordingButton=0x7f090019;
         public static final int TableLayout1=0x7f090000;
-        public static final int TableRow01=0x7f09001c;
-        public static final int TextView01=0x7f090008;
-        public static final int TextView02=0x7f090017;
-        public static final int TextView03=0x7f090019;
-        public static final int TextViewIssue=0x7f090005;
-        public static final int TextViewUnlock=0x7f090020;
-        public static final int autocomplete_country=0x7f090009;
-        public static final int button1=0x7f09000f;
-        public static final int button2=0x7f090012;
-        public static final int button3=0x7f09001b;
-        public static final int button4=0x7f090010;
-        public static final int categoryId=0x7f09001e;
-        public static final int description=0x7f09000b;
-        public static final int gallery1=0x7f09001a;
-        public static final int help=0x7f090015;
-        public static final int id=0x7f09001d;
-        public static final int imageButton1=0x7f090018;
-        public static final int menu_settings=0x7f090021;
-        public static final int myreports=0x7f090014;
-        public static final int new_report=0x7f090013;
-        public static final int reportfield=0x7f09000c;
-        public static final int sector=0x7f090002;
-        public static final int sectorvalue=0x7f090003;
-        public static final int settings=0x7f090022;
-        public static final int spinner2=0x7f090006;
-        public static final int sync=0x7f090016;
-        public static final int tableRow1=0x7f090001;
-        public static final int tableRow2=0x7f090007;
-        public static final int tableRow3=0x7f09000a;
-        public static final int tableRow4=0x7f09000d;
-        public static final int tableRow5=0x7f090004;
-        public static final int textView2=0x7f09000e;
-        public static final int unlockcode=0x7f09001f;
-        public static final int video=0x7f090011;
+        public static final int TableRow01=0x7f090025;
+        public static final int TextView01=0x7f09000f;
+        public static final int TextView02=0x7f090020;
+        public static final int TextView03=0x7f090022;
+        public static final int TextViewIssue=0x7f09000c;
+        public static final int TextViewUnlock=0x7f09002c;
+        public static final int audio=0x7f090005;
+        public static final int audioview=0x7f090029;
+        public static final int autocomplete_country=0x7f090010;
+        public static final int button1=0x7f090015;
+        public static final int button2=0x7f090016;
+        public static final int button3=0x7f090024;
+        public static final int button4=0x7f090002;
+        public static final int categoryId=0x7f090027;
+        public static final int description=0x7f090012;
+        public static final int gallery1=0x7f090023;
+        public static final int help=0x7f09001e;
+        public static final int id=0x7f090026;
+        public static final int imageButton1=0x7f090021;
+        public static final int menu_settings=0x7f09002d;
+        public static final int myreports=0x7f09001d;
+        public static final int new_report=0x7f09001c;
+        public static final int photoview=0x7f090028;
+        public static final int reportfield=0x7f090013;
+        public static final int sector=0x7f090007;
+        public static final int sectorvalue=0x7f090008;
+        public static final int settings=0x7f09002e;
+        public static final int spinner2=0x7f09000d;
+        public static final int spinner3=0x7f09000a;
+        public static final int sync=0x7f09001f;
+        public static final int tableRow1=0x7f090006;
+        public static final int tableRow2=0x7f09000e;
+        public static final int tableRow3=0x7f090011;
+        public static final int tableRow4=0x7f090001;
+        public static final int tableRow5=0x7f09000b;
+        public static final int tableRow6=0x7f090004;
+        public static final int tableRow7=0x7f090009;
+        public static final int textView2=0x7f090014;
+        public static final int unlockcode=0x7f09002b;
+        public static final int video=0x7f090003;
+        public static final int videoview=0x7f09002a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int home=0x7f030001;
-        public static final int location=0x7f030002;
-        public static final int new_report=0x7f030003;
-        public static final int reportslist=0x7f030004;
-        public static final int unlock_screen=0x7f030005;
+        public static final int audio_capture=0x7f030001;
+        public static final int home=0x7f030002;
+        public static final int location=0x7f030003;
+        public static final int new_report=0x7f030004;
+        public static final int preference_list_content=0x7f030005;
+        public static final int reportslist=0x7f030006;
+        public static final int unlock_screen=0x7f030007;
     }
     public static final class menu {
         public static final int activity_main=0x7f080000;

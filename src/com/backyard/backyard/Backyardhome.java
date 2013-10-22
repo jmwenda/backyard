@@ -2,10 +2,23 @@ package com.backyard.backyard;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,6 +42,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.backyard.backyard.PreferenceListFragment.OnPreferenceAttachedListener;
+
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteStatement;
 import android.app.Activity;
@@ -37,16 +52,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.provider.BaseColumns;
 
 public class Backyardhome extends Activity {
@@ -99,7 +117,8 @@ public class Backyardhome extends Activity {
     {
     	// prepare for a progress bar dialog
 		progressBar = new ProgressDialog(v.getContext());
-		progressBar.setCancelable(true);
+		
+		progressBar.setCancelable(false);
 		progressBar.setMessage("Sourcemap Syncing ...");
 		progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		progressBar.setProgress(0);
@@ -110,10 +129,10 @@ public class Backyardhome extends Activity {
 		new Thread(new Runnable() {
 			  public void run() {
 				while (progressBarStatus < 100) {
-
+				
 				  // process some tasks
 				  progressBarStatus = doSync();
-
+				  
 				  // your computer is too fast, sleep 1 second
 				  try {
 					Thread.sleep(1000);
@@ -146,14 +165,48 @@ public class Backyardhome extends Activity {
 				if (progressBarStatus == 1000) {
 					Thread.currentThread().interrupt();
 					// close the progress bar dialog
-					progressBar.dismiss();
-					
-					
-					
+					progressBar.dismiss();				
 		    		 
 				}
 			  }
 		       }).start();
+    }
+    public void export()
+    {
+    	File f=new File("/data/data/com.backyard.backyard/databases/backyard.db");
+    	FileInputStream fis=null;
+    	FileOutputStream fos=null;
+
+    	try
+    	{
+    	  fis=new FileInputStream(f);
+    	  fos=new FileOutputStream("/mnt/sdcard/Pictures/Backyard/db_dump.db");
+    	  while(true)
+    	  {
+    	    int i=fis.read();
+    	    if(i!=-1)
+    	    {fos.write(i);}
+    	    else
+    	    {break;}
+    	  }
+    	  fos.flush();
+    	  //Toast.makeText(this, "DB dump OK", Toast.LENGTH_LONG).show();
+    	}
+    	catch(Exception e)
+    	{
+    	  e.printStackTrace();
+    	  //Toast.makeText(this, "DB dump ERROR", Toast.LENGTH_LONG).show();
+    	}
+    	finally
+    	{
+    	  try
+    	  {
+    	    fos.close();
+    	    fis.close();
+    	  }
+    	  catch(IOException ioe)
+    	  {}
+    	}
     }
     
     public int doSync()
@@ -161,8 +214,11 @@ public class Backyardhome extends Activity {
     	SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     	String username = sharedPref.getString("sourcemapusername",null);
     	String sourcemappass = sharedPref.getString("sourcemappassword",null);
+    	username = "afri";
+    	sourcemappass = "testthis";
     	int percentage = 0;
     	if ((username != null) && (sourcemappass != null)){
+    	export();
     	//we get records from the database
         Log.d("fetch: ", "Syncing ..");
         String password = "foo123";
@@ -184,13 +240,7 @@ public class Backyardhome extends Activity {
     	}
         while (!cursor.isAfterLast() && records != 0) {
           Report report = cursorToReport(cursor);
-          Log.d("sector", report._sector);
-          Log.d("desc",report._desc);
-          Log.d("lat",report._latitude);
-          Log.d("lng",report._longitude);
-          Log.d("issue",report._issue);
-          Log.d("photo",report._photo);
-          Log.d("video",report._video);
+          
           
           //we now push the report to sourcemap
           sourcemappush(report,username,sourcemappass);
@@ -234,6 +284,24 @@ public class Backyardhome extends Activity {
     	Random random = new Random();
     	HttpClient httpClient = new DefaultHttpClient();
     	String map_set = null;
+    	try {
+			decrypt(report._photo);
+			decrypt(report._video);
+		} catch (InvalidKeyException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NoSuchPaddingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+
     	HttpPost request = new HttpPost("http://beta.mysourcemap.com/member/login?format=json");
     	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
     	nameValuePairs.add(new BasicNameValuePair("username", "jmwenda"));  
@@ -260,6 +328,10 @@ public class Backyardhome extends Activity {
     	{
     		map_set =  "50f264283988cc533e00000c";
     		
+    	}
+    	if (report._sector.equals("Bush Meat"))
+    	{
+    		map_set = "50fa5edb3988cc1217000090";
     	}
     	
     	try {
@@ -289,13 +361,13 @@ public class Backyardhome extends Activity {
 		    	postValuePairs.add(new BasicNameValuePair("address",report._latitude +", " + report._longitude ));
 		    	postValuePairs.add(new BasicNameValuePair("type", "site"));
 		    	postValuePairs.add(new BasicNameValuePair("attributes[issue]", report._issue));
+		    	postValuePairs.add(new BasicNameValuePair("attributes[subsector]", report._subsector));
 		    	postValuePairs.add(new BasicNameValuePair("set",map_set));
 		    	Log.d("postvalues",""+postValuePairs+"");
 		    	requestpost.setEntity(new UrlEncodedFormEntity(postValuePairs));
 		    	HttpResponse responsepost = httpClient.execute(requestpost);
-		    	resEntityGet = responsepost.getEntity();
-		    	object = EntityUtils.toString(resEntityGet);
-		    	
+		    	//resEntityGet = responsepost.getEntity();
+		    	object = EntityUtils.toString(responsepost.getEntity());
 		    	try {
 		    		JSONObject jObject = new JSONObject(object);
 		    		JSONObject object_id = jObject.getJSONObject("_id");
@@ -304,11 +376,69 @@ public class Backyardhome extends Activity {
 					Log.d("report photo",report._photo);
 					File videofile = new File(report._video);
 					//FileBody photobin = new FileBody(p);
-					Log.d("filephoto", videofile.toURI().toString());
-					pushfiles(httpClient,report._video,"video",objectid);
-					pushfiles(httpClient,report._photo,"photo",objectid);
+					
+					//pushfiles(httpClient,report._video,"video",objectid);
+					//pushfiles(httpClient,report._photo,"photo",objectid);
+
 					
 					
+					HttpContext httpContext = new BasicHttpContext();
+					HttpPost httpPost = new HttpPost("http://beta.mysourcemap.com/file/accept_upload?format=json");
+		            MultipartEntity entity = new MultipartEntity();
+		            if (report._photo != null){
+		            entity.addPart("type", new StringBody("photo"));
+		            ContentBody cbFile = new FileBody(new File(report._photo), "image/jpeg");
+		            //entity.addPart("file", new FileBody(videofile));
+		            entity.addPart("uploaded_file", new FileBody(new File(report._photo)));
+		            entity.addPart("related_id", new StringBody(objectid));
+		            //entity.addPart("related_to", new StringBody("thing"));
+		            entity.addPart("type", new StringBody("photo"));
+		            entity.addPart("userfile", cbFile);
+
+		            }
+		            //entity.addPart("video[file]", new FileBody(new File(path)));
+		            httpPost.setEntity(entity);
+		            HttpResponse responsefile = httpClient.execute(httpPost);
+		            
+		            HttpEntity resEntity = responsefile.getEntity();  
+		            Log.d("response file",""+EntityUtils.toString(resEntity)+"");
+		            MultipartEntity entitytwo = new MultipartEntity();
+                    if (report._video != null){
+		            entitytwo.addPart("type", new StringBody("video"));
+		            ContentBody cbFilevid = new FileBody(new File(report._video), "mp4");
+		            //entity.addPart("file", new FileBody(videofile));
+		            entitytwo.addPart("uploaded_file", new FileBody(new File(report._video)));
+		            entitytwo.addPart("related_id", new StringBody(objectid));
+		            //entity.addPart("related_to", new StringBody("thing"));
+		            entitytwo.addPart("type", new StringBody("video"));
+		            entitytwo.addPart("userfile", cbFilevid);
+		    		
+
+                    }
+		    		
+		    		
+		            HttpPost httpPostvid = new HttpPost("http://beta.mysourcemap.com/file/accept_upload?format=json");
+		            httpPostvid.setEntity(entitytwo);
+		            HttpResponse responsefilevid = httpClient.execute(httpPostvid);
+		            
+		            HttpEntity resEntityvid = responsefilevid.getEntity();  
+		            Log.d("response file",""+EntityUtils.toString(resEntityvid)+"");
+		            //Toast.makeText(this, "Sync successful",Toast.LENGTH_LONG).show();
+		    		try {
+						encrypt(report._photo);
+						encrypt(report._video);
+						encrypt(report._audio);
+					} catch (InvalidKeyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		            
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -326,27 +456,79 @@ public class Backyardhome extends Activity {
 			e.printStackTrace();
 		}
     }
+    
+    static void decrypt(String filepath) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+        FileInputStream fis = new FileInputStream(filepath);
+ 
+        FileOutputStream fos = new FileOutputStream(filepath+"decrypt");
+        SecretKeySpec sks = new SecretKeySpec("enteryourkeyhere".getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, sks);
+        CipherInputStream cis = new CipherInputStream(fis, cipher);
+        int b;
+        byte[] d = new byte[8];
+        while((b = cis.read(d)) != -1) {
+            fos.write(d, 0, b);
+        }
+        fos.flush();
+        fos.close();
+        cis.close();
+    	File from = new File(filepath);
+    	Log.d("from file",from.getAbsolutePath().toString());
+    	File to = new File(filepath+"decrypt");
+    	Log.d("to file",to.getAbsolutePath().toString());
+    	to.renameTo(from);
+    }
+    static void encrypt(String filepath) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+    	// Here you read the cleartext.
+    	FileInputStream fis = new FileInputStream(filepath);
+    	// This stream write the encrypted text. This stream will be wrapped by another stream.
+    	FileOutputStream fos = new FileOutputStream(filepath+"crypt");
+    	// Length is 16 byte
+    	SecretKeySpec sks = new SecretKeySpec("enteryourkeyhere".getBytes(), "AES");
+    	// Create cipher
+    	Cipher cipher = Cipher.getInstance("AES");
+    	cipher.init(Cipher.ENCRYPT_MODE, sks);
+    	// Wrap the output stream
+    	CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+    	// Write bytes
+    	int b;
+    	byte[] d = new byte[8];
+    	while((b = fis.read(d)) != -1)
+    	{
+    	   cos.write(d, 0, b);
+    	}
+    	// Flush and close streams.
+    	cos.flush();
+    	cos.close();
+    	fis.close();
+    	File from = new File(filepath);
+    	File to = new File(filepath+"crypt");
+    	to.renameTo(from);
+    	
+    	}
     public void pushfiles(HttpClient httpClient,String path, String type,String object)
     {
-    	HttpContext httpContext = new BasicHttpContext();
+    	//HttpContext httpContext = new BasicHttpContext();
 		HttpPost httpPost = new HttpPost("http://beta.mysourcemap.com/file/accept_upload?format=json");
 		try 
         {
             MultipartEntity entity = new MultipartEntity();
+            entity.addPart("type", new StringBody("video"));
             ContentBody cbFile = new FileBody(new File(path), "image/jpeg");
             //entity.addPart("file", new FileBody(videofile));
-            entity.addPart("uploaded_file", new FileBody(new File(path)));
-            entity.addPart("related_id", new StringBody(object));
-            entity.addPart("related_to", new StringBody("thing"));
-            entity.addPart("type", new StringBody(type));
+            //entity.addPart("uploaded_file", new FileBody(new File(path)));
+            //entity.addPart("related_id", new StringBody(object));
+            //entity.addPart("related_to", new StringBody("thing"));
+            //entity.addPart("type", new StringBody(type));
+            
             entity.addPart("userfile", cbFile);
-            entity.addPart("video[file]", new FileBody(new File(path)));
+            //entity.addPart("video[file]", new FileBody(new File(path)));
             httpPost.setEntity(entity);
-
-
             HttpResponse responsefile = httpClient.execute(httpPost);
+            
             HttpEntity resEntity = responsefile.getEntity();  
-            //Log.d("response file",""+EntityUtils.toString(resEntity)+"");
+            Log.d("response file",""+EntityUtils.toString(resEntity)+"");
         } 
         catch (IOException e) 
         {

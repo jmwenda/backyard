@@ -24,12 +24,14 @@ public class ReportDataSQLHelper extends SQLiteOpenHelper {
 	// Columns
 	public static final String TIME = "time";
 	public static final String SECTOR = "sector";
+	public static final String SUBSECTOR = "subsector";
 	public static final String ISSUE = "issue";
 	public static final String COMPANY = "company";
 	public static final String DESC = "desc";
 	public static final String LATITUDE = "lat";
 	public static final String LONGITUDE = "lon";
 	public static final String PHOTO = "photo";
+	public static final String AUDIO = "audio";
 	public static final String VIDEO = "video";
 	public static final String SYNC = "sync";
 
@@ -43,12 +45,14 @@ public class ReportDataSQLHelper extends SQLiteOpenHelper {
 		String sql = "create table " + TABLE + "( " + BaseColumns._ID
 				+ " integer primary key autoincrement, " + TIME + " integer, "
 				+ SECTOR + " text not null,"
+				+ SUBSECTOR + " text not null,"
 				+ ISSUE + " text not null,"
 				+ COMPANY + " text not null,"
 				+ DESC + " text not null," 
 				+ LATITUDE + " text not null,"
 				+ LONGITUDE + " text not null,"
 				+ PHOTO + " text not null,"
+				+ AUDIO + " text not null,"
 				+ VIDEO + " text not null,"
 				+ SYNC + " integer not null DEFAULT '0');";
 		Log.d("ReportData", "onCreate: " + sql);

@@ -5,6 +5,7 @@ import android.provider.BaseColumns;
 public class Report {
 	int _id;
 	String _sector;
+	String _subsector;
 	String _desc;
 	String _issue;
 	String _timeinmills;
@@ -12,12 +13,14 @@ public class Report {
 	String _longitude;
 	String _company;
 	String _photo;
+	String _audio;
 	String _video;
 	public Report(){}
 	// constructor
-    public Report(int id, String sector, String issue, String company ,String desc,String timeinmills, String latitude,String longitude,String photo,String video){
+    public Report(int id, String sector, String subsector,String issue, String company ,String desc,String timeinmills, String latitude,String longitude,String photo,String video,String audio){
         this._id = id;
         this._sector = sector;
+        this._subsector = subsector;
         this._desc = desc;
         this._issue = issue;
         this._timeinmills = timeinmills;
@@ -25,6 +28,7 @@ public class Report {
         this._longitude = longitude;
         this._company = company;
         this._photo = photo;
+        this._audio = audio;
         this._video = video;
     }
  
@@ -37,6 +41,24 @@ public class Report {
     public String getSector(){
         return this._sector;
     }
+    public String getDescription(){
+        return this._desc;
+    }
+    public String getCompany(){
+        return this._company;
+    }
+    public String getPhoto(){
+        return this._photo;
+    }
+    public String getVideo()
+    {
+    	return this._video;
+    }
+    public String getAudio()
+    {
+    	return this._audio;
+    }
+    
     // getting name
     public String getTime(){
     	int timeinmills = ((int) System.currentTimeMillis()); 
@@ -80,6 +102,16 @@ public class Report {
     {
     	
     	this._video= video;
+    }
+    public void setAudio(String audio)
+    {
+    	
+    	this._audio = audio;
+    }
+    public void setCompany(String company)
+    {
+    	
+    	this._company= company;
     }
 
 }

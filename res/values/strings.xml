@@ -7,18 +7,146 @@
     <string name="username"></string>
     <string name="password"></string>
     <string name="unlockcode"></string>
-   <string-array name="sector_arrays">
+   <string-array name="sector_arrays">b
         <item>Forestry</item>
         <item>Mining</item>
         <item>Agriculture</item>
+        <item>Bush Meat</item>
+    </string-array>
+    <string-array name="subsectorforest_arrays">
+           <item>Logging Site</item>
+           <item>Logging Field</item>
+           <item>Log Transport</item>
+           <item>Company Meeting</item>
+           <item>CFCD Meeting</item>
+           <item>Company Camp</item>
+           <item>Other</item>
+    </string-array>
+        <string-array name="subsectormining_arrays">
+           <item>Mining (machines)</item>
+           <item>Mining (manual)</item>
+           <item>Company Meeting</item>
+           <item>Company Camp</item>
+
+           <item>Other</item>
+    </string-array>
+            <string-array name="subsectoragric_arrays">
+           <item>Company Meeting</item>
+           <item>Community Meeting</item>
+           <item>Company Camp</item>
+           <item>Forest Clearance</item>
+           <item>Swamp Clearance</item>
+           <item>Grave Site (destory)</item>
+           <item>Society Bush (cleaned)</item>
+           <item>Other</item>
+    </string-array>
+        <string-array name="subsectorbush_arrays">
+           <item>Hunting Camp</item>
+           <item>Bush Meat Transport</item>
+           <item>Bush Meat Market</item>
+           <item>Other</item>
+    </string-array>
+            <string-array name="subsectoranimals_arrays">
+           <item>Elephant</item>
+           <item>Monkey</item>
+           <item>Baboon</item>
+           <item>Bush Hog</item>
+           <item>Bush Cow</item>
+           <item>Water Deer</item>
+           <item>Pigmy Hippo</item>
+           <item>Other</item>
     </string-array>
        <string-array name="issue_arrays">
         <item>Illegal Permit</item>
         <item>Community Land Rights</item>
         <item>Corruption</item>
+        <item>Contract Breach</item>
     </string-array>
            <string-array name="company_arrays">
-        <item>Coca Cola</item>
-        <item>Mars</item>
+<item>Cavalla Rubber Corporation</item>
+<item>Firestone Liberia, Inc</item>
+<item>Golden Veroleum (Liberia), Inc</item>
+<item>Liberian Agricultural Corporation (LAC)</item>
+<item>Liberia Forest Products Inc.</item>
+<item>LIBINC Oil Palm Inc.</item>
+<item>Rubber Cultuur Maatschappij ‘Amsterdam’ and Nordmann Rasmann and Company (Salala Plantation)</item>
+<item>Sime Darby Plantation (Liberia) Inc.</item>
+<item>ADA Commercial Inc.</item>
+<item>Novel</item>
+<item>Decoris</item>
+<item>Sinoe Rubber Plantation</item>
+<item>The Liberia Company (Cocopa)</item>
+<item>AMLIB United Minerals Inc. (Grand Gedeh County)</item>
+<item>AMLIB United Minerals Inc. (Montserrado County)</item>
+<item>AMLIB United Minerals Inc. (River Cess County)</item>
+<item>Bentley International Trading Corporation</item>
+<item>China (Hong Kong) Mining Company, Ltd. and China Union Investment (Liberia) Bong Mines Company, Ltd.</item>
+<item>ArclorMittal Liberia</item>
+<item>Putu Iron Ore Mining, Inc and Mano River Iron Ore Ltd.</item>
+<item>Bokon Jideh Resources</item>
+<item>Bea Mountain Mining corp</item>
+<item>Explorex Overseas Ltd. (Henry)</item>
+<item>Explorex Overseas Ltd. (St. Paul)</item>
+<item>Deveton Mining</item>
+<item>Afro Minerals Inc</item>
+<item>Hummingbird Resources</item>
+<item>Belle Resources</item>
+<item>BSG Resources Liberia Ltd.</item>
+<item>China Henan International Corp</item>
+<item>Crystal River</item>
+<item>Fine Minerals International</item>
+<item>Genesis Mining Inc.</item>
+<item>Global Mineral Investment LCC</item>
+<item>Macnemo</item>
+<item>Target Resources</item>
+<item>Usoma Minerals and Mines</item>
+<item>Voila International</item>
+<item>BHP Billiton (Liberia)</item>
+<item>Jamu Resources Inc</item>
+<item>Treco Mining Corp</item>
+<item>Konblo Bumi Inc. (Kakata)</item>
+<item>Bopolu Commercial Ltd.</item>
+<item>Sealand Diamonds</item>
+<item>Pedra Mining (Gbarpolu)</item>
+<item>Broadway Consolidated PLC</item>
+<item>Estmor Gold Mining Co.</item>
+<item>Sinoe Exploration Ltd.</item>
+<item>Ascension Resources Corp.</item>
+<item>Youssef Diamond Mining Corp.</item>
+<item>Southern Cross Investment Ltd.</item>
+<item>Iron Resources Inc</item>
+<item>International Business Exchange</item>
+<item>TSIMPILO Trading</item>
+<item>Deveton/Hummingbird JV</item>
+<item>Elenito/Sesa Goa/Vedanta</item>
+<item>KPO Resource Inc; Mano River Resources Inc.g</item>
+<item>Anadarko Liberia Block-10 company</item>
+<item>Oranto Petroleum Chevron Liberia B Limited </item>
+<item>Oranto Petroleum Chevron Liberia B Limited </item>
+<item>Oranto Petroleum Chevron Liberia B Limited </item>
+<item>REPSOL Exploracion S.A. </item>
+<item>Woodside West Africa PTY Ltd. </item>
+<item>Regal Liberia Ltd. and European Hydrocarbons Ltd.</item>
+<item>Euro Liberia Logging</item>
+<item>ICC</item>
+<item>Geblo Logging </item>
+<item>B and V</item>
+<item>LTTC</item>
+<item>EJ and J</item>
+<item>Tarpeh Timber Co.</item>
+<item>Bacus and Bacus</item>
+<item>Alpha Logging</item>
+<item>Atlantic Resources</item>
+<item>D.C. Wilson Inc.</item>
+<item>UFC Regnal</item>
+<item>UNITIMBER Co.</item>
+<item>Wash Cox and Knight</item>
+<item>Tropical Reserves Entrepreneur Enterprises</item>
+<item>Akewa Group of Companies</item>
+<item>Bassa Logging Company</item>
+<item>Sun Yeun Corporation Limited</item>
+<item>Bassa Timber and Logging Co.</item>
+<item>Gus Kouwenhoven </item>
+<item>John Gbeze</item>
     </string-array>
 </resources>
